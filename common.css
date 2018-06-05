@@ -1,0 +1,73 @@
+/********************************************************************
+ PAGE STYLE
+ 
+ Styles that is to be applied to the main page content of the 
+ website
+ *******************************************************************/
+body {
+    background-color: lightgray;
+    font-family: "Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    margin: 0;
+    font-size: 15px;
+}
+
+.mainContent {
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px;
+    width: 75%;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+/********************************************************************
+ APPLICATION STYLE
+ *******************************************************************/
+.pageApp input, .pageApp button, .pageApp p {
+    font-size: 15px;
+}
+
+/********************************************************************   
+ HEADER AND FOOTER STYLES
+ 
+ Contains information about the style of the top navigation bar and
+ the footer.
+********************************************************************/
+header nav li {
+    display: inline-block;
+    list-style: outside none none;
+    padding: 20px;
+}
+
+header nav a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+}
+
+header nav ul {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+header, footer {
+    background-color: rgba(0,0,0,.7);
+    text-align: center;
+    margin: 0;
+}
+
+footer {
+    font-size: 12px;
+    color: white;
+    padding: 4px;
+}

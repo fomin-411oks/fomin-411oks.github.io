@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="baseconvertApp" ng-strict-di class="no-js" has-js>
+
+<head>
+    <meta charset="utf-8">
+    <title>Конвертер чисел у різні системи числення</title>
+    <script src="index.min.js" defer></script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Online base converter. Convert from any base, to any base (binary, hexadecimal, even roman numerals!)">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Конвертер чисел у різні системи числення</h1>
+        </div>
+    </header>
+	
+    <div class="container">
+        <!--[if lt IE 9]>
+<div class="alert alert-danger">
+You are using an <strong>old browser</strong>. Please upgrade, or download another browser, like <a href="https://mozilla.org/firefox/">Firefox</a>.
+</div>
+<![endif]-->
+        <noscript>
+<div class="alert alert-danger">
+Please <strong>enable JavaScript</strong> to use this site.
+</div>
+</noscript>
+        <div class="conversions" ng-controller="ConversionController" is-human="track('human')">
+            <div class="form-group base has-feedback js-only" ng-class="{
+isten: base.id === '10',
+example: base === curExample,
+focus: base.hasFocus,
+'has-error': base.hasError
+}" ng-repeat="base in bases" ng-mouseenter="baseMouseenter(base)">
+                <label class="input-group">
+<div class="input-group-addon">
+{{base.name|ucFirst}} <small class="hidden-xs" ng-if="base.explanation">({{base.explanation}})</small>
+</div>
+<input
+class="form-control"
+ng-model="base.number"
+ng-focus="numberFocus(base)"
+ng-blur="numberBlur(base)"
+focus-on="{{base.id}}"
+ng-change="numberChange(base)"
+ng-keydown="numberKeydown(base, $event)">
+</label>
+                <a href="index.html" class="delete form-control-feedback" ng-click="baseDeleteClick(base)" focus-on="{{base.id}}-delete" ng-keydown="baseDeleteKeydown(base, $event)"><span><span>Очистити</span></span></a>
+            </div>
+            <div class="form-group base no-js">
+                <label class="input-group">
+<div class="input-group-addon">Двійкове <small class="hidden-xs">(0 або 1)</small></div>
+<input class="form-control">
+</label>
+            </div>
+            <div class="form-group base no-js">
+                <label class="input-group">
+<div class="input-group-addon">Вісімкове <small class="hidden-xs">(від 0 до 7)</small></div>
+<input class="form-control">
+</label>
+            </div>
+            <div class="form-group base isten no-js">
+                <label class="input-group">
+<div class="input-group-addon">Десяткове <small class="hidden-xs">(від 0 до 9)</small></div>
+<input class="form-control">
+</label>
+            </div>
+            <div class="form-group base no-js">
+                <label class="input-group">
+<div class="input-group-addon">Hexadecimal <small class="hidden-xs">(base 16)</small></div>
+<input class="form-control">
+</label>
+            </div>
+            <div class="form-group base newbase" ng-class="{example: 'new' === curExample}">
+                <label class="input-group">
+<input
+class="form-control"
+ng-model="newBaseName"
+ng-focus="newBaseNameFocus()"
+focus-on="new"
+ng-blur="newBaseNameBlur()"
+scroll-into-view-on="suggestions, prio=2, margin=15"
+ng-keydown="newBaseNameKeydown($event)">
+<ul
+class="list-unstyled suggestions u-empty-text js-only"
+data-empty-text="No matching bases"
+ng-show="showSuggestions"
+ng-mousedown="suggestionMousedown()"
+mousedown-elsewhere="notSuggestionMousedown()"
+scroll-into-view-on="suggestions, prio=1, margin=15"
+is-mousedown-elsewhere-active="{{showSuggestions}}"><li
+ng-repeat="suggestion in suggestions"
+ng-mouseenter="selectSuggestion(suggestion)"
+ng-class="{selected: selectedSuggestion === suggestion}"
+ng-click="addBase(suggestion)">{{suggestion.name | ucFirst}} <small ng-if="suggestion.explanation">({{suggestion.explanation}})</small></li></ul>
+<div class="input-group-addon">
+Ввести нову основу числення (підтримуються від'ємні основи)
+</div>
+</label>
+            </div>
+        </div>
+		</div>
+</body>
+
+</html>

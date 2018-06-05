@@ -3,106 +3,123 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Конвертер чисел у різні системи числення</title>
-    <script src="index.min.js" defer></script>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Online base converter. Convert from any base, to any base (binary, hexadecimal, even roman numerals!)">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Конвертер чисел</title>
+    <script type="text/javascript" src="mainScript.js"></script>
+    <script type="text/javascript" src="convert/index.min.js"></script>
+    <link type="text/css" href="convert/style.css" rel="stylesheet" />
+    <link type="text/css" href="common.css" rel="stylesheet" />
 </head>
 
 <body>
     <header>
-        <div class="container">
-            <h1>Конвертер чисел у різні системи числення</h1>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="binaryConverter.html">Конвертер</a></li>
+                <li><a href="bitShift.html">Бітовий зсув</a></li>
+                <li><a href="bitwiseOperations.html">Побітові операції</a></li>
+                <li><a href="characters.html">Символи</a></li>
+            </ul>
+        </nav>
     </header>
-    <div class="container">
-        <!--[if lt IE 9]>
+    <div class="mainContent">
+        <h1>Конвертер чисел</h1>
+        <div class="pageApp">
+            <h2>Інструкція:</h2>
+            <p align="justify">
+			Для перетворення числа або коду з однієї системи числення до іншої, Вам достатньо ввести його у відповідному полі. Скрипт автоматично переведе його у двійкове, вісімкове, десяткове або шістнадцяткове число. Якщо потрібного поля немає, Ви можете власноруч його додати: для цього у останньому полі введіть основу системи числення, або назву перетворення, наприклад «Доповняльний код». Підтримуються від’ємні та додатні основи, перетворення у доповняльний код, римські числа та уявний кварта-код. Зверніть увагу, якщо поле вводу загориться червоним, це означає, що ви намагаєтесь використовувати числа або символи, які не входять до діапазону наданої системи числення.
+			</p>
+            <div class="container">
+                <!--[if lt IE 9]>
 <div class="alert alert-danger">
 You are using an <strong>old browser</strong>. Please upgrade, or download another browser, like <a href="https://mozilla.org/firefox/">Firefox</a>.
 </div>
 <![endif]-->
-        <noscript>
-<div class="alert alert-danger">
-Please <strong>enable JavaScript</strong> to use this site.
-</div>
-</noscript>
-        <div class="conversions" ng-controller="ConversionController" is-human="track('human')">
-            <div class="form-group base has-feedback js-only" ng-class="{
+                <noscript>
+                    <div class="alert alert-danger">
+                        Please <strong>enable JavaScript</strong> to use this site.
+                    </div>
+                </noscript>
+                <div class="conversions" ng-controller="ConversionController" is-human="track('human')">
+                    <div class="form-group base has-feedback js-only" ng-class="{
 isten: base.id === '10',
 example: base === curExample,
 focus: base.hasFocus,
 'has-error': base.hasError
 }" ng-repeat="base in bases" ng-mouseenter="baseMouseenter(base)">
-                <label class="input-group">
-<div class="input-group-addon">
-{{base.name|ucFirst}} <small class="hidden-xs" ng-if="base.explanation">({{base.explanation}})</small>
-</div>
-<input
-class="form-control"
-ng-model="base.number"
-ng-focus="numberFocus(base)"
-ng-blur="numberBlur(base)"
-focus-on="{{base.id}}"
-ng-change="numberChange(base)"
-ng-keydown="numberKeydown(base, $event)">
-</label>
-                <a href="index.html" class="delete form-control-feedback" ng-click="baseDeleteClick(base)" focus-on="{{base.id}}-delete" ng-keydown="baseDeleteKeydown(base, $event)"><span><span>Очистити</span></span></a>
-            </div>
-            <div class="form-group base no-js">
-                <label class="input-group">
-<div class="input-group-addon">Двійкове <small class="hidden-xs">(0 або 1)</small></div>
-<input class="form-control">
-</label>
-            </div>
-            <div class="form-group base no-js">
-                <label class="input-group">
-<div class="input-group-addon">Вісімкове <small class="hidden-xs">(від 0 до 7)</small></div>
-<input class="form-control">
-</label>
-            </div>
-            <div class="form-group base isten no-js">
-                <label class="input-group">
-<div class="input-group-addon">Десяткове <small class="hidden-xs">(від 0 до 9)</small></div>
-<input class="form-control">
-</label>
-            </div>
-            <div class="form-group base no-js">
-                <label class="input-group">
-<div class="input-group-addon">Hexadecimal <small class="hidden-xs">(base 16)</small></div>
-<input class="form-control">
-</label>
-            </div>
-            <div class="form-group base newbase" ng-class="{example: 'new' === curExample}">
-                <label class="input-group">
-<input
-class="form-control"
-ng-model="newBaseName"
-ng-focus="newBaseNameFocus()"
-focus-on="new"
-ng-blur="newBaseNameBlur()"
-scroll-into-view-on="suggestions, prio=2, margin=15"
-ng-keydown="newBaseNameKeydown($event)">
-<ul
-class="list-unstyled suggestions u-empty-text js-only"
-data-empty-text="No matching bases"
-ng-show="showSuggestions"
-ng-mousedown="suggestionMousedown()"
-mousedown-elsewhere="notSuggestionMousedown()"
-scroll-into-view-on="suggestions, prio=1, margin=15"
-is-mousedown-elsewhere-active="{{showSuggestions}}"><li
-ng-repeat="suggestion in suggestions"
-ng-mouseenter="selectSuggestion(suggestion)"
-ng-class="{selected: selectedSuggestion === suggestion}"
-ng-click="addBase(suggestion)">{{suggestion.name | ucFirst}} <small ng-if="suggestion.explanation">({{suggestion.explanation}})</small></li></ul>
-<div class="input-group-addon">
-Ввести нову основу числення
-</div>
-</label>
+                        <label class="input-group">
+                            <div class="input-group-addon">
+                                {{base.name|ucFirst}} <small class="hidden-xs" ng-if="base.explanation">({{base.explanation}})</small>
+                            </div>
+                            <input class="form-control" ng-model="base.number" ng-focus="numberFocus(base)" ng-blur="numberBlur(base)" focus-on="{{base.id}}" ng-change="numberChange(base)" ng-keydown="numberKeydown(base, $event)">
+                        </label>
+                    </div>
+                    <div class="form-group base no-js">
+                        <label class="input-group">
+                            <div class="input-group-addon">Двійкове <small class="hidden-xs">(0 або 1)</small></div>
+                            <input class="form-control">
+                        </label>
+                    </div>
+                    <div class="form-group base no-js">
+                        <label class="input-group">
+                            <div class="input-group-addon">Вісімкове <small class="hidden-xs">(від 0 до 7)</small></div>
+                            <input class="form-control">
+                        </label>
+                    </div>
+                    <div class="form-group base isten no-js">
+                        <label class="input-group">
+                            <div class="input-group-addon">Десяткове <small class="hidden-xs">(від 0 до 9)</small></div>
+                            <input class="form-control">
+                        </label>
+                    </div>
+                    <div class="form-group base no-js">
+                        <label class="input-group">
+                            <div class="input-group-addon">Шістнадцяткове <small class="hidden-xs">(base 16)</small></div>
+                            <input class="form-control">
+                        </label>
+                    </div>
+                    <div class="form-group base newbase" ng-class="{example: 'new' === curExample}">
+                        <label class="input-group">
+                            <input class="form-control" ng-model="newBaseName" ng-focus="newBaseNameFocus()" focus-on="new" ng-blur="newBaseNameBlur()" scroll-into-view-on="suggestions, prio=2, margin=15" ng-keydown="newBaseNameKeydown($event)">
+                            <ul class="list-unstyled suggestions u-empty-text js-only" data-empty-text="No matching bases" ng-show="showSuggestions" ng-mousedown="suggestionMousedown()" mousedown-elsewhere="notSuggestionMousedown()" scroll-into-view-on="suggestions, prio=1, margin=15" is-mousedown-elsewhere-active="{{showSuggestions}}">
+                                <li ng-repeat="suggestion in suggestions" ng-mouseenter="selectSuggestion(suggestion)" ng-class="{selected: selectedSuggestion === suggestion}" ng-click="addBase(suggestion)">{{suggestion.name | ucFirst}} <small ng-if="suggestion.explanation">({{suggestion.explanation}})</small></li>
+                            </ul>
+                            <div class="input-group-addon">
+                                Ввести нову основу числення (підтримуються від'ємні основи)
+                            </div>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="moreInfo">
+            <div>
+                <h2>Введення у системи числення</h2>
+                <p align="justify">
+				Системою числення, або нумерацією, називається сукупність правил і знаків, за допомогою яких можна відобразити (кодувати) будь-яке невід’ємне число. Найбільш поширеною системою числення є десяткова. Назва системи числення, найчастіше, прямо говорить про її основу, яка в свою чергу, вказує на крайнє можливе значення системи (якщо брати початок з числа 0). Бінарний код, або двійкова система числення, складається лише з двох чисел – 0 та 1. Це означає, що інформація у цій системі числення кодується 0-ми та 1-ми, у безлічі їх комбінацій. Код, представлений у десятковій системі числення, може містити усі числа, від 0 до 9. В свою чергу, існують системи числення, основа яких більша за десяткову. Це означає, що для представлення коду у них ми повинні використовувати не тільки числа від 0 до 9, а також і букви латинського алфавіту – A-Z, де А означає число 10, B – 11, і т.д. При бажанні, можна записати будь-яке число у будь-якій системі числення, але не дивлячись на це, найбільш використовуваними залишаються двійкова та десяткова. 
+                </p>
+
+                <h2>Двійкова система числення</h2>
+                <p align="justify">
+				Двійкова система числення – це позиційна система числення, база якої дорівнює двом та використовує для запису чисел тільки два символи: зазвичай 0 (нуль) та 1 (одиницю). Числа, представлені в цій системі часто називають двійковими або бінарними. Завдяки тому, що таку систему доволі просто використовувати в електричних схемах, двійкова система отримала широке розповсюдження у світі обчислювальних пристроїв. Рахувати у двійковій системі не складніше, ніж у будь-якій іншій. Скажімо, у десятковій системі, коли число у поточному розряді сягає десяти, то розряд обнуляється і одиниця додається до старшого. Наприклад: 9+1=10, 44+7=51; Аналогічним чином у двійковій системі: коли число в розряді сягає двох — розряд обнуляється і одиниця додається до старшого розряду. Тобто: 1+1=10. Зверніть увагу, «10» у цьому записі — двійкове число, у десятковій системі це число записується як «2». А десяткове 9+1=10 у двійковій системі буде виглядати так: 1001+1=1010 (після додавання одиниці число в останньому розряді дорівнює двом, тож розряд обнуляється і одиниця додається до передостаннього (старшого) розряду).
+                </p>
+            </div>
+            <div>
+                <h2>Як відбувається перетворення</h2>
+                <p align="justify">
+				Для перетворення десяткового числа у двійкову систему числення число ділять на 2. Остачу у вигляді 0 або 1 записують у молодший розряд двійкового числа. Частку від ділення знов ділять на 2, остачу (0 або 1) записують у наступний після молодшого розряд. Ці дії виконують доти, доки частка від чергового ділення не дорівнюватиме 1. Одиницю записують у старший розряд двійкового числа.
+
+				Для перетворення цілого числа X, записаного в системі числення з ос­новою p, на його еквівалент у системі числення з основою q слід ділити X на q до отримання цілої остачі, меншої від q (метод послідовного ділення). Число X у системі числення з основою q подається послідовністю остач ділення в порядку, зворотному їхньому одержанню, причому старшу цифру в числі X дає остання остача.
+                </p>
+                <p align="center">
+				<img src="image001.jpg">
+                </p> 
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p align="center"><a href="https://t.me/evanengell" target="_blank"><font color="#FFD700"><b>Зв'язок з автором</b></font></a></p>
+    </footer>
 </body>
 
 </html>
