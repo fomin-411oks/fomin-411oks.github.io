@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Символи</title>
+		<link type="text/css" href="convert/style.css" rel="stylesheet" />
+		<link type="text/css" href="common.css" rel="stylesheet" />
+		<script src="mainScript.js" type="text/javascript"></script>
+	</head>
+	
+	<body>
+		<header>
+			<nav>
+				<ul>
+				<li><a href="index.html">Конвертер</a></li>
+                <li><a href="bitShift.html">Бітовий зсув</a></li>
+                <li><a href="bitwiseOperations.html">Побітові операції</a></li>
+                <li><a href="characters.html">Символи</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="mainContent">
+			<h1>Символи та набори символів</h1>
+			<p align="justify">
+				"Привіт". Цей рядок, представлений у вигляді символів, несе у собі зрозуміле нам слово. Людина без проблем може читати і розуміти значення символів та слів на знайомій їй мові. 
+			</p>
+			<p align="justify">
+				Але з точки зору комп’ютера, це слово відображається не як рядок символів. Комп’ютер бачить слова як масив цілих чисел. Наприклад, англійське слово "Hello" представлене у вигляді масиву: [72, 101, 108, 108, 111]. А вже самі числа, комп’ютер сприймає у вигляді їх двійкових кодів. Замість 72 комп'ютер представляє "H" як "01001000".
+			</p>
+			<h2>Десяткові числа в Символи</h2>
+			<h3>Інструкція:</h3>
+			<p align="justify">
+				Нижче введіть десяткове число, а потім натисніть "обчислити". Буде відображено не тільки двійкове подання цього номера, але й символ Unicode, який містить це значення.
+			</p>
+			<div class="pageApp">
+				<fieldset class="unicodeCalc">
+						<legend>Конвертер десяткових чисел у Символи</legend>
+						<h4>Введіть десяткове число</h4>
+						<input id="decimalIn" type="number" min="0" placeholder="0" max="10176" />
+						<button id="decConvert" type="submit">Обчислити</button>
+						<h4>Двійкове представлення числа</h4>
+						<p id="binaryOut">
+							0000 0000
+						</p>
+						<h4>Символьне представлення числа</h4>
+						<p id="charOut">
+							
+						</p>
+				</fieldset>
+			</div>
+			<h2>Символи в десяткові числа</h2>
+			<h3>Інструкція</h3>
+			<p align="justify">
+				Нижче введіть символ, а потім натисніть "обчислити". Буде відображено не тільки двійкове подання цього символа, а й його значення у десятковій системі числення.
+			<div class="pageApp">
+				<fieldset class="decimalCalc">
+						<legend>Конвертер Десяткових числе у Символи</legend>
+						<h4>Введіть символ</h4>
+						<input id="charIn" type="text" maxlength="1" />
+						<button id="charConvert" type="submit">Обчислити</button>
+						<h4>Десяткове представлене символу</h4>
+						<p id="charDecOut">
+							0
+						</p>
+						<h4>Двійкове представлення символу</h4>
+						<p id="charBinary">
+							0000 0000
+						</p>
+						
+				</fieldset>
+			</div>
+		</div>
+		<footer>
+			 <p align="center"><a href="https://t.me/evanengell" target="_blank"><font color="#FFD700"><b>Зв'язок з автором</b></font></a></p>
+		</footer>
+	</body>
+</html>
